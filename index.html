@@ -5,9 +5,20 @@
 		<title>My first three.js app</title>
 		<style>
 			body { margin: 0; }
+
+            #info{
+                position: absolute;
+                top: 10px;
+                width: 100%;
+                text-align: center;
+                z-index: 100;
+                display:block;
+                color: white;
+            }
 		</style>
 	</head>
 	<body>
+        <div id="info">CUBO FODASEKKKKKKKKKKKKKKKKKKKKKKKKKKKKK</div>
 		<script src="js/three.js"></script>
 		<script>
 			const scene = new THREE.Scene();
@@ -30,7 +41,7 @@
                 cube.rotation.y += 0.01;
                 renderer.render( scene, camera );
             }
-                
+
             animate();
 		</script>
 	</body>
