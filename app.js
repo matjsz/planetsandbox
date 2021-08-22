@@ -23,21 +23,3 @@ app.listen(PORT, () => {
 // admin.initializeApp({
 //     credential: admin.credential.cert(serviceAccount)
 // });
-
-
-
-
-
-
-// var firebaseConfig = {
-//     apiKey: "AIzaSyBi6KYmSu8_82aqweJxNQ2UteZ7WhAFh0U",
-//     authDomain: "planetsandbox.firebaseapp.com",
-//     projectId: "planetsandbox",
-//     storageBucket: "planetsandbox.appspot.com",
-//     messagingSenderId: "791648424265",
-//     appId: "1:791648424265:web:12fd295e189ae076528a98",
-//     measurementId: "G-B5RQ7KCFNE"
-// };
-// // Initialize Firebase
-// firebase.initializeApp(firebaseConfig);
-// firebase.analytics();
