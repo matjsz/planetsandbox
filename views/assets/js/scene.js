@@ -22,7 +22,7 @@ controls.enablePan = false;
 controls.enableDamping = true;
 controls.autoRotate = true;
 
-camera.position.set( 10, 5, 10 );
+camera.position.set(2, 5, 10)
 controls.update();
 
 function animate() {
@@ -34,38 +34,16 @@ function animate() {
 
 animate()
 
-// db.collection("planets").get().then((query) => {
-//     query.forEach((doc) => {
-//         // Get data from DB
-//         var planetData = doc.data()
-
-//         // Debug
-//         var debugStr = `Adicionando planeta "${planetData.name}"; ID: ${doc.id}`
-//         console.log(debugStr)
-//         console.log("=".repeat(debugStr.length))
-//         console.log(`X: ${planetData.x}\nY: ${planetData.y}\nZ: ${planetData.z}`)
-        
-//         // Prepare mesh
-//         var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-//         var material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
-//         var mesh = new THREE.Mesh( geometry, material );
-
-//         // Add to the scene
-//         scene.add( mesh );
-//         mesh.position.set(planetData.x, planetData.y, planetData.z);
-//     })
-// })
-
 db.collection("planets").onSnapshot((query) => {
     query.forEach((doc) => {
         // Get data from DB
         var planetData = doc.data()
 
         // Debug
-        var debugStr = `Adicionando planeta "${planetData.name}"; ID: ${doc.id}`
-        console.log(debugStr)
-        console.log("=".repeat(debugStr.length))
-        console.log(`X: ${planetData.x}\nY: ${planetData.y}\nZ: ${planetData.z}`)
+        // var debugStr = `Adicionando planeta "${planetData.name}"; ID: ${doc.id}`
+        // console.log(debugStr)
+        // console.log("=".repeat(debugStr.length))
+        // console.log(`X: ${planetData.x}\nY: ${planetData.y}\nZ: ${planetData.z}`)
          
         // Prepare mesh
         var geometry = new THREE.BoxGeometry( 1, 1, 1 );
@@ -79,9 +57,72 @@ db.collection("planets").onSnapshot((query) => {
 })
 
 document.getElementById("addObjButton").addEventListener("click", function() {
-    // const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-    // const material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
-    // const mesh = new THREE.Mesh( geometry, material );
-    // scene.add( mesh );
-    alert("Função indisponível!")
+    var planetName = document.getElementById('name').value;
+    var planetX = document.getElementById('x').value;
+    var planetY = document.getElementById('y').value;
+    var planetZ = document.getElementById('z').value;
+    var creator = document.getElementById('creator').value;
+
+    var found = 0;
+
+    db.collection("planets").where("name", "==", planetName)
+    .get()
+    .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            found++;
+        }); 
+
+        if(found == 1){
+            alert("That name has been taken. Please, insert another.")
+            found = 0
+        } else{
+            if(planetName.length > 0){
+                db.collection("planets").add({
+                    name: planetName,
+                    x: Number(planetX),
+                    y: Number(planetY),
+                    z: Number(planetZ),
+                    creator: creator
+                })
+            } else{
+                alert("Please, insert a correct name for your planet.")
+            }
+        }
+    })
+})
+
+document.getElementById("searchPlanet").addEventListener("click", function() {
+    var found = 0;
+
+    db.collection("planets").where("name", "==", document.getElementById("searchName").value)
+    .get()
+    .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            var planetData = doc.data()
+            found++
+            
+            // Debug
+            // var debugStr = `Procurando planeta "${planetData.name}"; ID: ${doc.id}`
+            // console.log(debugStr)
+            // console.log("=".repeat(debugStr.length))
+            // console.log(`X: ${planetData.x}\nY: ${planetData.y}\nZ: ${planetData.z}`)
+            var message = `Planet: ${planetData.name}\n\nCoordinates: ${planetData.x}; ${planetData.y}; ${planetData.z}\n\nCreator: ${planetData.creator}`
+
+            alert(message)
+
+            camera.position.set(planetData.x+2, planetData.y+2, planetData.z+2)
+            controls.update()
+            controls.target.set(planetData.x, planetData.y, planetData.z)
+            controls.update()
+        });
+        
+        if(found == 0){
+            alert("This planet doesn't exist.")
+        } else{
+            found = 0
+        }
+    })
+    .catch((error) => {
+        alert(error)
+    });
 })
