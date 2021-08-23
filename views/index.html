@@ -7,32 +7,111 @@
             body {
 				background-color: #ccc;
 				color: #000;
+				margin: 0;
+				padding: 0;
+				overflow: hidden
 			}
 
 			a {
 				color: #f00;
 			}
+
+			#title, #planetInfo, #allPlanets, #allPlanetsTittle, #createContainer, #searchContainer {
+				position: absolute;
+				color: white;
+				width: 100%;
+				text-align: center;
+				z-index: 100;
+				display:block;
+			}
+
+			#title{
+				text-align: right;
+				bottom: 1rem;
+				right: 1rem;
+			}
+
+			#planetInfo {
+				top: 7rem;
+			}
+
+			#allPlanets{
+				bottom: 3rem;
+				left: 2rem;
+				text-align: left;
+				max-height: 8rem;
+				height: 8rem;
+				padding-left: 1rem;
+				overflow-y: scroll;
+				scrollbar-color: white;
+				scrollbar-width: 20px;
+				background-color: rgba(180, 180, 180, 0.2);
+				max-width: 25rem;
+			}
+
+			#allPlanetsTittle{
+				text-align: left;
+				bottom: 11.5rem;
+				left: 2rem;
+			}
+
+			#createContainer, #searchContainer{
+				top: 1rem;
+			}
+
+			#createContainer{
+				text-align: left;
+				left: 1rem;
+				max-width: 60%;
+			}
+
+			#searchContainer{
+				text-align: right;
+				right: 1rem;
+				max-width: 30%;
+			}
+
+			@media (max-width: 1075px){
+				#searchContainer{
+					text-align: left;
+					left: 1rem;
+					top: 6.5rem;
+				}
+			}
 		</style>
 	</head>
 	<body>
-        <div id="info">universe</div>
+        <div id="title">Web Universe | V1.0.0</div>
+
+		<div id="planetInfo"></div>
 		
-		Name: <input type="text" id="name">
-		X: <input type="number" id="x">
-		Y: <input type="number" id="y">
-		Z: <input type="number" id="z">
-		Creator: <input type="text" id="creator">
-        <button id="addObjButton">Create</button>
+		<strong id="allPlanetsTittle">All planets</strong>
+		<div id="allPlanets"></div>
+		
+		<div id="createContainer">
+			Planet Name: <input type="text" id="name">
 
-		<br>
+			Creator: <input type="text" id="creator">
 
-		Name: <input type="text" id="searchName">
-		<button id="searchPlanet">Search</button>
+			<label for="type">Choose a type:</label>
+
+			<select name="type" id="type">
+				<option value="rock">Rock</option>
+				<option value="gas">Gas</option>
+			</select>
+
+			<button id="addObjButton">Create</button>	
+		</div>
+
+
+		<div id="searchContainer">
+			Planet Name: <input type="text" id="searchName">
+			<button id="searchPlanet">Search</button>
+		</div>
 
 		<script type="module" src="assets/js/scene.js"></script>
 
 		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-
 		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"></script>
 		

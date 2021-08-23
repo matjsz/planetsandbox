@@ -8,12 +8,16 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.static(path.resolve("views/")))
 
-app.use((req, res) => {
-    res.send("404")
-})
-
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, '/views/index.html'));
+});
+
+app.get('/img', function(req, res){
+    res.send("img");
+});
+
+app.get('/img/:name', function(req, res){
+    res.sendFile(path.join(__dirname, `views/assets/media/${req.params.name}.png`));
 });
 
 app.listen(PORT, () => {
