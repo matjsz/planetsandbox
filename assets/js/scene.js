@@ -1,11 +1,5 @@
 import * as THREE from 'https://cdn.skypack.dev/three';
 import { OrbitControls } from 'https://cdn.skypack.dev/three/examples/jsm/controls/OrbitControls.js';
-
-firebase.initializeApp({
-    apiKey: 'AIzaSyBi6KYmSu8_82aqweJxNQ2UteZ7WhAFh0U',
-    authDomain: 'planetsandbox.firebaseapp.com',
-    projectId: 'planetsandbox'
-});
   
 var db = firebase.firestore()
 
@@ -58,7 +52,7 @@ db.collection("planets").onSnapshot((query) => {
         if(planetData.type == undefined || planetData.type == null){
             var material = new THREE.MeshStandardMaterial( { color: new THREE.Color('rgb(255, 255, 255)') } ); 
         } else{
-            var texture = new THREE.TextureLoader().load(`https://https://web-universe.herokuapp.com/img/${planetData.type}`)
+            var texture = new THREE.TextureLoader().load(`assets/media/${planetData.type}.png`)
             var material = new THREE.MeshStandardMaterial( { map: texture } );
         }
         var mesh = new THREE.Mesh( geometry, material );
