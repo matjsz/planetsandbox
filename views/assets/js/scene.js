@@ -58,7 +58,7 @@ db.collection("planets").onSnapshot((query) => {
         if(planetData.type == undefined || planetData.type == null){
             var material = new THREE.MeshStandardMaterial( { color: new THREE.Color('rgb(255, 255, 255)') } ); 
         } else{
-            var texture = new THREE.TextureLoader().load(`http://localhost:3000/img/${planetData.type}`)
+            var texture = new THREE.TextureLoader().load(`https://https://web-universe.herokuapp.com/img/${planetData.type}`)
             var material = new THREE.MeshStandardMaterial( { map: texture } );
         }
         var mesh = new THREE.Mesh( geometry, material );
