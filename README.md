@@ -14,4 +14,4 @@
 
 - HTML, CSS, JS;
 - Firebase (Firestore);
-- Three.js;
+- Three.js (WebGL);
